@@ -50,12 +50,249 @@
             70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
             100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
         }
+            /* Expense Tracker Styles (Dark Theme) */
+            .total-section { background: linear-gradient(135deg, #4c51bf 0%, #6b46c1 100%); color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
+            .total-section h2 { font-size: 0.9em; margin-bottom: 5px; opacity: 0.9; }
+            .total-section .amount { font-size: 1.8em; font-weight: bold; }
+            .expense-row { display: flex; align-items: center; padding: 8px 10px; border-bottom: 1px solid #2d3748; gap: 8px; }
+            .expense-row:hover { background: #2d3748; }
+            .expense-row:last-child { border-bottom: none; }
+            .brand-logo { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7em; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+            .logo-nubank { background: #820AD1; color: white; } .logo-next { background: #00D464; color: white; } .logo-inter { background: #FF7A00; color: white; } .logo-ifood { background: #EA1D2C; color: white; } .logo-99 { background: #FFD700; color: #000; } .logo-c6 { background: #1f2937; color: white; } .logo-recargapay { background: #1f2937; color: white; } .logo-shopee { background: #EE4D2D; color: white; }
+            .expense-info { flex: 1; min-width: 0; }
+            .expense-info h3 { font-size: 0.85em; color: #e2e8f0; margin-bottom: 2px; font-weight: 600; }
+            .expense-info p { font-size: 0.7em; color: #a0aec0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .payment-date { font-size: 0.7em; color: #a3bffa; font-weight: 600; background: #2d3748; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+            .payment-date.empty { color: #718096; background: #2d3748; }
+            .value-display { font-size: 0.95em; font-weight: bold; color: #a3bffa; min-width: 75px; text-align: right; }
+            .value-display.zero { color: #718096; }
+            .action-buttons { display: flex; gap: 4px; }
+            .icon-btn { background: #4c51bf; color: white; border: none; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 0.85em; transition: background 0.3s; display: flex; align-items: center; justify-content: center; }
+            .icon-btn:hover { background: #434190; }
+            .icon-btn.pix-btn { background: #00A383; }
+            .icon-btn.pix-btn:hover { background: #008a6d; }
+            .category-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.65em; font-weight: 600; white-space: nowrap; }
+            .badge-obra { background: #c53030; color: white; } .badge-compras { background: #00b5d8; color: white; } .badge-emergencia { background: #d69e2e; color: white; } .badge-delivery { background: #c53030; color: white; } .badge-transporte { background: #d69e2e; color: white; } .badge-lazer { background: #b794f4; color: white; } .badge-mesada { background: #4a5568; color: white; } .badge-viagem { background: #805ad5; color: white; } .badge-aluguel { background: #805ad5; color: white; } .badge-ingles { background: #38a169; color: white; } .badge-outras { background: #dd6b20; color: white; }
+            .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; align-items: center; justify-content: center; }
+            .modal.active { display: flex; }
+            .modal-content { background: #1a202c; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; border: 1px solid #4a5568; }
+            .modal-header h2 { font-size: 1.2em; color: #e2e8f0; margin-bottom: 5px; }
+            .modal-header p { font-size: 0.85em; color: #a0aec0; }
+            .form-group label { display: block; font-size: 0.85em; color: #a0aec0; margin-bottom: 5px; font-weight: 600; }
+            .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #4a5568; border-radius: 8px; font-size: 1em; transition: border-color 0.3s; font-family: inherit; background: #2d3748; color: #e2e8f0; }
+            .form-group textarea { resize: vertical; min-height: 80px; }
+            .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #667eea; }
+            .modal-footer { display: flex; gap: 10px; justify-content: flex-end; }
+            .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+            .btn-cancel { background: #4a5568; color: #a0aec0; } .btn-cancel:hover { background: #2d3748; }
+            .btn-save { background: #4c51bf; color: white; } .btn-save:hover { background: #434190; }
+            .reset-btn { background: #c53030; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.75em; font-weight: 600; margin-top: 10px; width: 100%; }
+            .reset-btn:hover { background: #9b2c2c; }
+            .pix-display { background: #2d3748; padding: 12px; border-radius: 8px; margin-top: 15px; border: 2px dashed #00A383; }
+            .pix-display h3 { font-size: 0.9em; color: #e2e8f0; margin-bottom: 8px; }
+            .pix-key { background: #1a202c; padding: 10px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 0.85em; color: #e2e8f0; word-break: break-all; margin-bottom: 10px; }
+            .copy-btn { background: #00A383; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; font-weight: 600; width: 100%; transition: background 0.3s; }
+            .copy-btn:hover { background: #008a6d; }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
     <div id="root"></div>
 
     <script type="text/babel">
+        const ExpenseTracker = () => {
+            const { useState, useEffect } = React;
+
+            const expensesConfig = [
+                { id: 'obra', name: 'Obra', logo: 'Nu', logoClass: 'logo-nubank', description: 'Crédito Nubank', badge: '🏗️', badgeClass: 'badge-obra' },
+                { id: 'compras', name: 'Compras Mensais', logo: 'next', logoClass: 'logo-next', description: 'Cartão Next', badge: '🛒', badgeClass: 'badge-compras' },
+                { id: 'emergencia', name: 'Reserva de Emergência', logo: 'inter', logoClass: 'logo-inter', description: 'Inter Leticia', badge: '🆘', badgeClass: 'badge-emergencia' },
+                { id: 'delivery', name: 'Delivery', logo: 'iFood', logoClass: 'logo-ifood', description: 'iFood', badge: '🍕', badgeClass: 'badge-delivery' },
+                { id: 'transporte', name: 'Transporte', logo: '99', logoClass: 'logo-99', description: '99 Gabriel', badge: '🚗', badgeClass: 'badge-transporte', logoStyle: { fontSize: '1em', fontWeight: '900' } },
+                { id: 'lazer', name: 'Lazer', logo: '99', logoClass: 'logo-99', description: '99 Leticia', badge: '🎉', badgeClass: 'badge-lazer', logoStyle: { fontSize: '1em', fontWeight: '900' } },
+                { id: 'mesada_gabriel', name: 'Mesada Gabriel', logo: 'C6', logoClass: 'logo-c6', description: 'C6 Bank Gabriel', badge: '👦', badgeClass: 'badge-mesada' },
+                { id: 'mesada_leticia', name: 'Mesada Leticia', logo: 'C6', logoClass: 'logo-c6', description: 'C6 Bank Leticia', badge: '👧', badgeClass: 'badge-mesada' },
+                { id: 'viagem', name: 'Viagem', logo: 'Nu', logoClass: 'logo-nubank', description: 'Caixinha Nubank', badge: '✈️', badgeClass: 'badge-viagem' },
+                { id: 'aluguel', name: 'Aluguel', logo: 'Nu', logoClass: 'logo-nubank', description: 'Caixinha Nubank', badge: '🏠', badgeClass: 'badge-aluguel' },
+                { id: 'ingles', name: 'Inglês', logo: '$ pay', logoClass: 'logo-recargapay', description: 'Recarga Pay', badge: '📚', badgeClass: 'badge-ingles' },
+                { id: 'demais', name: 'Demais Contas', logo: 'Shopee', logoClass: 'logo-shopee', description: 'Conta Shopee Gabriel', badge: '📊', badgeClass: 'badge-outras', logoStyle: { fontSize: '0.65em' } }
+            ];
+
+            const [expenseData, setExpenseData] = useState({});
+            const [totalAmount, setTotalAmount] = useState(0);
+            const [isEditModalOpen, setEditModalOpen] = useState(false);
+            const [isPixModalOpen, setPixModalOpen] = useState(false);
+            const [currentExpense, setCurrentExpense] = useState(null);
+            const [formValue, setFormValue] = useState('');
+            const [formDueDate, setFormDueDate] = useState('');
+            const [formPixKey, setFormPixKey] = useState('');
+
+            useEffect(() => {
+                const savedData = localStorage.getItem('expenseTrackerData');
+                const data = savedData ? JSON.parse(savedData) : {};
+                setExpenseData(data);
+            }, []);
+
+            useEffect(() => {
+                const total = Object.values(expenseData).reduce((sum, item) => sum + (parseFloat(item.value) || 0), 0);
+                setTotalAmount(total);
+                localStorage.setItem('expenseTrackerData', JSON.stringify(expenseData));
+            }, [expenseData]);
+
+            const formatCurrency = (value) => {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value || 0);
+            };
+
+            const openEditModal = (expense) => {
+                setCurrentExpense(expense);
+                const data = expenseData[expense.id] || {};
+                setFormValue(data.value || 0);
+                setFormDueDate(data.dueDate || '');
+                setFormPixKey(data.pixKey || '');
+                setEditModalOpen(true);
+            };
+
+            const closeEditModal = () => {
+                setEditModalOpen(false);
+                setCurrentExpense(null);
+            };
+
+            const handleSave = () => {
+                if (!currentExpense) return;
+                const updatedData = {
+                    ...expenseData,
+                    [currentExpense.id]: {
+                        value: parseFloat(formValue) || 0,
+                        dueDate: formDueDate,
+                        pixKey: formPixKey.trim()
+                    }
+                };
+                setExpenseData(updatedData);
+                closeEditModal();
+            };
+
+            const openPixModal = (expense) => {
+                setCurrentExpense(expense);
+                setPixModalOpen(true);
+            };
+
+            const closePixModal = () => {
+                setPixModalOpen(false);
+                setCurrentExpense(null);
+            };
+
+            const handleResetAll = () => {
+                if (confirm('Tem certeza que deseja zerar todos os valores, datas e chaves PIX?')) {
+                    setExpenseData({});
+                }
+            };
+
+            const copyPixKey = (pixKey) => {
+                if (!pixKey) return;
+                navigator.clipboard.writeText(pixKey).then(() => {
+                    alert('Chave PIX copiada!');
+                }).catch(err => {
+                    alert('Erro ao copiar: ' + err);
+                });
+            };
+
+            return (
+                <div className="p-3 sm:p-4">
+                    <div className="total-section">
+                        <h2>Total a Repassar</h2>
+                        <div className="amount">{formatCurrency(totalAmount)}</div>
+                    </div>
+
+                    <div id="expensesList">
+                        {expensesConfig.map(expense => {
+                            const data = expenseData[expense.id] || {};
+                            const value = data.value || 0;
+                            const dueDate = data.dueDate || '';
+                            const valueClass = value > 0 ? '' : 'zero';
+                            const dateClass = dueDate ? '' : 'empty';
+                            const dateText = dueDate ? `Dia ${dueDate}` : 'Sem data';
+
+                            return (
+                                <div className="expense-row" key={expense.id}>
+                                    <div className={`brand-logo ${expense.logoClass}`} style={expense.logoStyle || {}}>{expense.logo}</div>
+                                    <div className="expense-info">
+                                        <h3>{expense.name}</h3>
+                                        <p>{expense.description}</p>
+                                    </div>
+                                    <span className={`payment-date ${dateClass}`}>{dateText}</span>
+                                    <div className={`value-display ${valueClass}`}>{formatCurrency(value)}</div>
+                                    <div className="action-buttons">
+                                        <button className="icon-btn" onClick={() => openEditModal(expense)} title="Editar">✏️</button>
+                                        <button className="icon-btn pix-btn" onClick={() => openPixModal(expense)} title="Ver PIX">💳</button>
+                                    </div>
+                                    <span className={`category-badge ${expense.badgeClass}`}>{expense.badge}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <button className="reset-btn" onClick={handleResetAll}>Zerar Todos os Valores</button>
+
+                    {isEditModalOpen && currentExpense && (
+                        <div className="modal active">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h2>Editar {currentExpense.name}</h2>
+                                    <p>{currentExpense.description}</p>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="form-group">
+                                        <label htmlFor="valueInput">Valor (R$)</label>
+                                        <input type="number" id="valueInput" step="0.01" min="0" placeholder="0.00"
+                                            value={formValue} onChange={e => setFormValue(e.target.value)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="dueDateInput">Dia do Vencimento</label>
+                                        <input type="number" id="dueDateInput" min="1" max="31" placeholder="Ex: 15"
+                                            value={formDueDate} onChange={e => setFormDueDate(e.target.value)} />
+                                        <p className="help-text">Dia do mês para pagamento</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="pixKeyInput">Chave PIX</label>
+                                        <textarea id="pixKeyInput" placeholder="Cole a chave PIX aqui..."
+                                            value={formPixKey} onChange={e => setFormPixKey(e.target.value)}></textarea>
+                                        <p className="help-text">Deixe em branco se não houver PIX cadastrado</p>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button className="btn btn-cancel" onClick={closeEditModal}>Cancelar</button>
+                                    <button className="btn btn-save" onClick={handleSave}>Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {isPixModalOpen && currentExpense && (
+                        <div className="modal active">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h2>Dados para Pagamento - {currentExpense.name}</h2>
+                                    <p>{currentExpense.description}</p>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="pix-display">
+                                        <h3>📱 Chave PIX</h3>
+                                        <div className="pix-key">
+                                            {expenseData[currentExpense.id]?.pixKey || 'Nenhuma chave cadastrada'}
+                                        </div>
+                                        <button className="copy-btn" onClick={() => copyPixKey(expenseData[currentExpense.id]?.pixKey)}>
+                                            📋 Copiar Chave PIX
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button className="btn btn-cancel" onClick={closePixModal}>Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         const initialDb = {
             usuarios: {
                 gabriel: { nome: "Gabriel", emoji: "👨🏻" },
@@ -314,7 +551,7 @@
 
             const ViewSwitcher = () => {
                 const buttonClasses = (v) => `px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${view === v ? 'bg-cyan-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`;
-                return (<div className="p-3 sm:p-4 border-b border-t border-gray-700/50"><div className="flex justify-center bg-gray-800 p-1 rounded-lg space-x-1 sm:space-x-2 max-w-sm mx-auto"> <button onClick={() => setView('todos')} className={buttonClasses('todos')}>Todos</button> <button onClick={() => setView('leticia')} className={buttonClasses('leticia')}>👩🏻 Leticia</button> <button onClick={() => setView('gabriel')} className={buttonClasses('gabriel')}>👨🏻 Gabriel</button> </div></div>);
+                return (<div className="p-3 sm:p-4 border-b border-t border-gray-700/50"><div className="flex justify-center bg-gray-800 p-1 rounded-lg space-x-1 sm:space-x-2 max-w-md mx-auto"> <button onClick={() => setView('todos')} className={buttonClasses('todos')}>Todos</button> <button onClick={() => setView('leticia')} className={buttonClasses('leticia')}>👩🏻 Leticia</button> <button onClick={() => setView('gabriel')} className={buttonClasses('gabriel')}>👨🏻 Gabriel</button> <button onClick={() => setView('despesas')} className={buttonClasses('despesas')}>💸 Despesas</button> </div></div>);
             };
 
             const Timeline = () => (
@@ -410,18 +647,24 @@
                  <div className="min-h-screen pb-20">
                     <Header />
                      <main>
-                        <ContasPanel />
-                        <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
-                        <CaixinhasPanel />
-                        <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
-                        <CartoesPanel />
+                        {view !== 'despesas' && (
+                            <>
+                                <ContasPanel />
+                                <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
+                                <CaixinhasPanel />
+                                <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
+                                <CartoesPanel />
+                            </>
+                        )}
                         <ViewSwitcher />
-                        <Timeline />
+                        {view === 'despesas' ? <ExpenseTracker /> : <Timeline />}
                     </main>
                     {checklistActionId && <ChecklistModal />}
                     {editingActionId && <EditActionModal />}
                     {isManagementModalOpen && <ManagementModal />}
-                    <button onClick={() => { const newAction = { id: Date.now(), dia: new Date().getDate(), responsavel: 'gabriel', evento: 'Novo Evento', tarefas: []}; handleSaveAction(newAction); setEditingActionId(newAction.id); }} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-cyan-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-lg hover:bg-cyan-700 transition-transform hover:scale-110 z-30">+</button>
+                    {view !== 'despesas' && (
+                        <button onClick={() => { const newAction = { id: Date.now(), dia: new Date().getDate(), responsavel: 'gabriel', evento: 'Novo Evento', tarefas: []}; handleSaveAction(newAction); setEditingActionId(newAction.id); }} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-cyan-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-lg hover:bg-cyan-700 transition-transform hover:scale-110 z-30">+</button>
+                    )}
                 </div>
             );
         };
