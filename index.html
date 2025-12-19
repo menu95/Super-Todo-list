@@ -44,6 +44,105 @@
     ::-webkit-scrollbar { width: 10px; height: 10px; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
     ::-webkit-scrollbar-track { background: rgba(0,0,0,0.25); }
+
+    /* Guia de Despesas Styles */
+    .guia-container {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      color: #333;
+    }
+    .guia-header {
+      text-align: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #667eea;
+    }
+    .guia-header h1 {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 2px;
+      font-weight: bold;
+    }
+    .guia-header p {
+      font-size: 0.75em;
+      color: #666;
+    }
+    .guia-expense-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 10px;
+    }
+    .guia-expense-row:hover {
+      background: #f8f9fa;
+    }
+    .guia-expense-row:last-child {
+      border-bottom: none;
+    }
+    .guia-brand-logo {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.7em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+    .guia-brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .logo-nubank { background: #820AD1; color: white; }
+    .logo-next { background: #00D464; color: white; }
+    .logo-inter { background: #FF7A00; color: white; }
+    .logo-ifood { background: #EA1D2C; color: white; }
+    .logo-99 { background: #FFD700; color: #000; }
+    .logo-c6 { background: #000000; color: white; }
+    .logo-ingles { background: #4285F4; color: white; }
+    .logo-shopee { background: #EE4D2D; color: white; }
+
+    .guia-expense-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .guia-expense-info h3 {
+      font-size: 0.9em;
+      color: #333;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+    .guia-expense-info p {
+      font-size: 0.75em;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .guia-category-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.65em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-obra { background: #f5576c; color: white; }
+    .badge-compras { background: #00f2fe; color: #333; }
+    .badge-emergencia { background: #fee140; color: #333; }
+    .badge-delivery { background: #EA1D2C; color: white; }
+    .badge-transporte { background: #FFD700; color: #333; }
+    .badge-lazer { background: #fecfef; color: #333; }
+    .badge-mesada { background: #000000; color: white; }
+    .badge-viagem { background: #820AD1; color: white; }
+    .badge-aluguel { background: #820AD1; color: white; }
+    .badge-ingles { background: #4285F4; color: white; }
+    .badge-outras { background: #EE4D2D; color: white; }
   </style>
 </head>
 
@@ -265,6 +364,7 @@
       const [mode, setMode] = useState("timeline"); // 'timeline' | 'planilha'
 
       const [isManagementModalOpen, setIsManagementModalOpen] = useState(false);
+      const [isGuiaModalOpen, setIsGuiaModalOpen] = useState(false);
 
       useEffect(() => {
         localStorage.setItem("financeDb", JSON.stringify(db));
@@ -509,6 +609,9 @@
             <h1 className="text-lg sm:text-xl font-bold text-cyan-400">Dashboard Financeiro</h1>
           </div>
           <div className="flex items-center gap-2">
+            <button onClick={() => setIsGuiaModalOpen(true)} className="text-xs bg-purple-500/20 text-purple-400 px-3 py-1 rounded-md hover:bg-purple-500/40 transition-colors">
+              Guia
+            </button>
             <button onClick={() => setIsManagementModalOpen(true)} className="text-xs bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-md hover:bg-yellow-500/40 transition-colors">
               Gerenciar
             </button>
@@ -723,6 +826,50 @@
           </div>
         </div>
       );
+
+      const GuiaModal = ({ onClose }) => {
+        const expenseRows = [
+          { title: "Obra", desc: "Crédito Nubank", logoClass: "logo-nubank", img: "assets/nubank.png", badgeClass: "badge-obra", badge: "🏗️" },
+          { title: "Compras Mensais", desc: "Cartão Next", logoClass: "logo-next", img: "assets/next.png", badgeClass: "badge-compras", badge: "🛒" },
+          { title: "Reserva de Emergência", desc: "Inter Leticia", logoClass: "logo-inter", img: "assets/inter.png", badgeClass: "badge-emergencia", badge: "🆘" },
+          { title: "Delivery", desc: "iFood", logoClass: "logo-ifood", img: "assets/ifood.png", badgeClass: "badge-delivery", badge: "🍕" },
+          { title: "Transporte", desc: "99 Gabriel", logoClass: "logo-99", img: "assets/99.png", badgeClass: "badge-transporte", badge: "🚗" },
+          { title: "Lazer", desc: "99 Leticia", logoClass: "logo-99", img: "assets/99.png", badgeClass: "badge-lazer", badge: "🎉" },
+          { title: "Mesada Gabriel", desc: "C6 Bank Gabriel", logoClass: "logo-c6", img: "assets/c6.png", badgeClass: "badge-mesada", badge: "👦" },
+          { title: "Mesada Leticia", desc: "C6 Bank Leticia", logoClass: "logo-c6", img: "assets/c6.png", badgeClass: "badge-mesada", badge: "👧" },
+          { title: "Viagem", desc: "Caixinha Nubank", logoClass: "logo-nubank", img: "assets/nubank.png", badgeClass: "badge-viagem", badge: "✈️" },
+          { title: "Aluguel", desc: "Caixinha Nubank", logoClass: "logo-nubank", img: "assets/nubank.png", badgeClass: "badge-aluguel", badge: "🏠" },
+          { title: "Inglês", desc: "Plataforma de Inglês", logoClass: "logo-ingles", img: "assets/english.png", badgeClass: "badge-ingles", badge: "📚" },
+          { title: "Demais Contas", desc: "Conta Shopee Gabriel", logoClass: "logo-shopee", img: "assets/shopee.png", badgeClass: "badge-outras", badge: "📊" },
+        ];
+
+        return (
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+            <div className="guia-container w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+              <div className="guia-header relative">
+                <h1>💰 Guia de Despesas</h1>
+                <p>Para onde enviar cada pagamento</p>
+                <button onClick={onClose} className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+              </div>
+              {expenseRows.map((row, idx) => (
+                <div key={idx} className="guia-expense-row">
+                  <div className={`guia-brand-logo ${row.logoClass}`}>
+                    <img src={row.img} alt={row.title} />
+                  </div>
+                  <div className="guia-expense-info">
+                    <h3>{row.title}</h3>
+                    <p>{row.desc}</p>
+                  </div>
+                  <span className={`guia-category-badge ${row.badgeClass}`}>{row.badge}</span>
+                </div>
+              ))}
+              <div className="mt-4 text-center">
+                <button onClick={onClose} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg text-sm">Fechar</button>
+              </div>
+            </div>
+          </div>
+        );
+      };
 
       const ChecklistModal = () => {
         const action = db.acoes.find((a) => a.id === checklistActionId);
@@ -1074,6 +1221,7 @@
               {checklistActionId && <ChecklistModal />}
               {editingActionId && <EditActionModal />}
               {isManagementModalOpen && <ManagementModal />}
+              {isGuiaModalOpen && <GuiaModal onClose={() => setIsGuiaModalOpen(false)} />}
 
               <button
                 onClick={() => {
