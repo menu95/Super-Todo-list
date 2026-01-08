@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minhas Despesas</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 10px;
+}
+
+.container {
+max-width: 480px;
+margin: 0 auto;
+background: white;
+border-radius: 12px;
+padding: 15px;
+box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.header {
+text-align: center;
+margin-bottom: 12px;
+padding-bottom: 10px;
+border-bottom: 2px solid #667eea;
+}
+
+.header h1 {
+font-size: 1.2em;
+color: #333;
+margin-bottom: 2px;
+}
+
+.header p {
+font-size: 0.75em;
+color: #666;
+}
+
+.expense-row {
+display: flex;
+align-items: center;
+padding: 8px 10px;
+border-bottom: 1px solid #f0f0f0;
+gap: 10px;
+}
+
+.expense-row:hover {
+background: #f8f9fa;
+}
+
+.expense-row:last-child {
+border-bottom: none;
+}
+
+.brand-logo {
+width: 36px;
+height: 36px;
+min-width: 36px;
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+font-size: 0.7em;
+box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+overflow: hidden;
+}
+
+.brand-logo img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+}
+
+.logo-nubank { background: #820AD1; color: white; }
+.logo-next { background: #00D464; color: white; }
+.logo-inter { background: #FF7A00; color: white; }
+.logo-ifood { background: #EA1D2C; color: white; }
+.logo-99 { background: #FFD700; color: #000; }
+.logo-c6 { background: #000000; color: white; }
+.logo-ingles { background: #4285F4; color: white; }
+.logo-shopee { background: #EE4D2D; color: white; }
+
+.expense-info {
+flex: 1;
+min-width: 0;
+}
+
+.expense-info h3 {
+font-size: 0.9em;
+color: #333;
+margin-bottom: 2px;
+font-weight: 600;
+}
+
+.expense-info p {
+font-size: 0.75em;
+color: #666;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.category-badge {
+padding: 4px 8px;
+border-radius: 12px;
+font-size: 0.65em;
+font-weight: 600;
+white-space: nowrap;
+}
+
+.badge-obra { background: #f5576c; color: white; }
+.badge-compras { background: #00f2fe; color: #333; }
+.badge-emergencia { background: #fee140; color: #333; }
+.badge-delivery { background: #EA1D2C; color: white; }
+.badge-transporte { background: #FFD700; color: #333; }
+.badge-lazer { background: #fecfef; color: #333; }
+.badge-mesada { background: #000000; color: white; }
+.badge-viagem { background: #820AD1; color: white; }
+.badge-aluguel { background: #820AD1; color: white; }
+.badge-ingles { background: #4285F4; color: white; }
+.badge-outras { background: #EE4D2D; color: white; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>💰 Guia de Despesas</h1>
+<p>Para onde enviar cada pagamento</p>
+</div>
+
+<!-- Obra -->
+<div class="expense-row">
+<div class="brand-logo logo-nubank"><img src="assets/nubank.png" alt="Nubank"></div>
+<div class="expense-info">
+<h3>Obra</h3>
+<p>Crédito Nubank</p>
+</div>
+<span class="category-badge badge-obra">🏗️</span>
+</div>
+
+<!-- Compras Mensais -->
+<div class="expense-row">
+<div class="brand-logo logo-next"><img src="assets/next.png" alt="Next"></div>
+<div class="expense-info">
+<h3>Compras Mensais</h3>
+<p>Cartão Next</p>
+</div>
+<span class="category-badge badge-compras">🛒</span>
+</div>
+
+<!-- Reserva de Emergência -->
+<div class="expense-row">
+<div class="brand-logo logo-inter"><img src="assets/inter.png" alt="Inter"></div>
+<div class="expense-info">
+<h3>Reserva de Emergência</h3>
+<p>Inter Leticia</p>
+</div>
+<span class="category-badge badge-emergencia">🆘</span>
+</div>
+
+<!-- Delivery -->
+<div class="expense-row">
+<div class="brand-logo logo-ifood"><img src="assets/ifood.png" alt="iFood"></div>
+<div class="expense-info">
+<h3>Delivery</h3>
+<p>iFood</p>
+</div>
+<span class="category-badge badge-delivery">🍕</span>
+</div>
+
+<!-- Transporte -->
+<div class="expense-row">
+<div class="brand-logo logo-99"><img src="assets/99.png" alt="99"></div>
+<div class="expense-info">
+<h3>Transporte</h3>
+<p>99 Gabriel</p>
+</div>
+<span class="category-badge badge-transporte">🚗</span>
+</div>
+
+<!-- Lazer -->
+<div class="expense-row">
+<div class="brand-logo logo-99"><img src="assets/99.png" alt="99"></div>
+<div class="expense-info">
+<h3>Lazer</h3>
+<p>99 Leticia</p>
+</div>
+<span class="category-badge badge-lazer">🎉</span>
+</div>
+
+<!-- Mesada Gabriel -->
+<div class="expense-row">
+<div class="brand-logo logo-c6"><img src="assets/c6.png" alt="C6"></div>
+<div class="expense-info">
+<h3>Mesada Gabriel</h3>
+<p>C6 Bank Gabriel</p>
+</div>
+<span class="category-badge badge-mesada">👦</span>
+</div>
+
+<!-- Mesada Leticia -->
+<div class="expense-row">
+<div class="brand-logo logo-c6"><img src="assets/c6.png" alt="C6"></div>
+<div class="expense-info">
+<h3>Mesada Leticia</h3>
+<p>C6 Bank Leticia</p>
+</div>
+<span class="category-badge badge-mesada">👧</span>
+</div>
+
+<!-- Viagem -->
+<div class="expense-row">
+<div class="brand-logo logo-nubank"><img src="assets/nubank.png" alt="Nubank"></div>
+<div class="expense-info">
+<h3>Viagem</h3>
+<p>Caixinha Nubank</p>
+</div>
+<span class="category-badge badge-viagem">✈️</span>
+</div>
+
+<!-- Aluguel -->
+<div class="expense-row">
+<div class="brand-logo logo-nubank"><img src="assets/nubank.png" alt="Nubank"></div>
+<div class="expense-info">
+<h3>Aluguel</h3>
+<p>Caixinha Nubank</p>
+</div>
+<span class="category-badge badge-aluguel">🏠</span>
+</div>
+
+<!-- Inglês -->
+<div class="expense-row">
+<div class="brand-logo logo-ingles"><img src="assets/english.png" alt="Inglês"></div>
+<div class="expense-info">
+<h3>Inglês</h3>
+<p>Plataforma de Inglês</p>
+</div>
+<span class="category-badge badge-ingles">📚</span>
+</div>
+
+<!-- Demais Contas -->
+<div class="expense-row">
+<div class="brand-logo logo-shopee"><img src="assets/shopee.png" alt="Shopee"></div>
+<div class="expense-info">
+<h3>Demais Contas</h3>
+<p>Conta Shopee Gabriel</p>
+</div>
+<span class="category-badge badge-outras">📊</span>
+</div>
+</div>
+</body>
+</html>

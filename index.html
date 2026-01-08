@@ -52,11 +52,15 @@
 
   <script type="text/babel">
     // =========================================================
-    // DB INICIAL (atualizado com:
-    // - Gabriel: dia 30 -> dia 5; dia 7 -> dia 12
-    // - Aluguel: 650 e pago pela Letícia
-    // - Transferência Letícia->Gabriel: 400 no dia 5
-    // - Reserva unificada: virou Obra
+    // DB INICIAL (atualizado com novas despesas de Gabriel)
+    // - Aluguel: 650 (Caixinha)
+    // - Mesadas: 150 cada
+    // - Viagem: 200
+    // - Lazer: 150
+    // - Transporte: 100
+    // - Inglês: 360
+    // - Shopee: 185
+    // - Compras: 750
     // =========================================================
     const initialDb = {
       usuarios: {
@@ -104,30 +108,25 @@
           ]
         },
 
-        // Dia 5 — Gabriel (era dia 30)
+        // Dia 5 — Gabriel
         {
           id: 3,
           dia: 5,
           responsavel: "gabriel",
-          evento: "Renda e Pagamentos (novo dia)",
+          evento: "Renda e Pagamentos",
           tarefas: [
             { id: 301, descricao: "Receber Salário", origemDestino: "Crédito da Renda 2", tipo: "[+ RENDA]", valor: 600, concluida: false, targetType: "conta", targetId: "gabriel", operation: "add" },
 
-            { id: 302, descricao: "Pagamentos Diversos", origemDestino: "Contas Diversas (Shopee)", tipo: "[🤖 AUTOMÁTICO]", valor: 185, concluida: false, targetType: "conta", targetId: "gabriel", operation: "subtract" },
+            { id: 302, descricao: "Contas Diversas (Shopee)", origemDestino: "Shopee Gabriel", tipo: "[🤖 AUTOMÁTICO]", valor: 185, concluida: false, targetType: "conta", targetId: "gabriel", operation: "subtract" },
 
-            { id: 303, descricao: "Completar Meta Inglês (Parte 2)", origemDestino: "Plataforma de Inglês", tipo: "[🧑‍💻 MANUAL]", valor: 120, concluida: false,
-              targetType: "caixinha", targetId: "ingles", operation: "add", sourceType: "conta", sourceId: "gabriel"
-            },
-
-            // Recargas: iFood 150 + Mesadas 300 + Lazer/99 Leticia 150 + Transporte/99 Gabriel 95 = 695
-            { id: 304, descricao: "Recargas (iFood, Mesadas, 99)", origemDestino: "Carteiras/Cartões", tipo: "[🧑‍💻 MANUAL]", valor: 695, concluida: false,
+            // Recargas: Mesada L 150 + Mesada G 150 + Lazer 150 + Transporte 100 = 550
+            { id: 304, descricao: "Recargas (Mesadas, Lazer, Transporte)", origemDestino: "Carteiras/Cartões", tipo: "[🧑‍💻 MANUAL]", valor: 550, concluida: false,
               targetType: "multi",
               targets: [
-                { type: "cartao", id: "delivery", value: 150 },
-                { type: "cartao", id: "mesadaGabriel", value: 150 },
                 { type: "cartao", id: "mesadaLeticia", value: 150 },
+                { type: "cartao", id: "mesadaGabriel", value: 150 },
                 { type: "cartao", id: "lazer", value: 150 },
-                { type: "cartao", id: "transporte", value: 95 }
+                { type: "cartao", id: "transporte", value: 100 }
               ],
               sourceType: "conta",
               sourceId: "gabriel"
@@ -135,14 +134,14 @@
           ]
         },
 
-        // Dia 8 — Leticia (aluguel 650)
+        // Dia 8 — Leticia (aluguel 650 - pagamento)
         {
           id: 4,
           dia: 8,
           responsavel: "leticia",
           evento: "Pagamento do Aluguel",
           tarefas: [
-            // Resgatar da caixinha (caixinha -> conta)
+            // Resgatar da caixinha
             {
               id: 401,
               descricao: "Resgatar da Caixinha Aluguel",
@@ -156,7 +155,7 @@
               sourceType: "caixinha",
               sourceId: "aluguel"
             },
-            // Pagamento do aluguel (saída da conta)
+            // Pagamento
             {
               id: 402,
               descricao: "Pagar Aluguel",
@@ -171,7 +170,7 @@
           ]
         },
 
-        // Dia 12 — Gabriel (era dia 7)
+        // Dia 12 — Gabriel
         {
           id: 5,
           dia: 12,
@@ -179,38 +178,33 @@
           evento: "Renda, Contas e Metas",
           tarefas: [
             { id: 501, descricao: "Receber Salário", origemDestino: "Crédito da Renda 1", tipo: "[+ RENDA]", valor: 1500, concluida: false, targetType: "conta", targetId: "gabriel", operation: "add" },
-            { id: 502, descricao: "Pagar Conta Essencial", origemDestino: "Conta de Luz", tipo: "[🤖 AUTOMÁTICO]", valor: 120, concluida: false, targetType: "conta", targetId: "gabriel", operation: "subtract" },
 
-            { id: 503, descricao: "Carregar Cartão COMPRAS MENSAL", origemDestino: "Cartão Pré-Pago Next", tipo: "[🧑‍💻 MANUAL]", valor: 700, concluida: false,
-              targetType: "cartao", targetId: "compras", operation: "add", sourceType: "conta", sourceId: "gabriel"
+            { id: 502, descricao: "Abastecer Meta Aluguel", origemDestino: "Caixinha Nubank: Aluguel", tipo: "[🧑‍💻 MANUAL]", valor: 650, concluida: false,
+              targetType: "caixinha", targetId: "aluguel", operation: "add", sourceType: "conta", sourceId: "gabriel"
             },
 
-            // Reserva unificada -> Obra
-            { id: 504, descricao: "Aporte Obra (Reserva unificada)", origemDestino: "Crédito Nubank (Obra)", tipo: "[🧑‍💻 MANUAL]", valor: 300, concluida: false,
-              targetType: "caixinha", targetId: "obra", operation: "add", sourceType: "conta", sourceId: "gabriel"
+            { id: 503, descricao: "Carregar Cartão COMPRAS MENSAL", origemDestino: "Cartão Pré-Pago Next", tipo: "[🧑‍💻 MANUAL]", valor: 750, concluida: false,
+              targetType: "cartao", targetId: "compras", operation: "add", sourceType: "conta", sourceId: "gabriel"
             },
 
             { id: 505, descricao: "Abastecer Meta Viagem", origemDestino: "Caixinha Nubank: Viagem", tipo: "[🧑‍💻 MANUAL]", valor: 200, concluida: false,
               targetType: "caixinha", targetId: "viagem", operation: "add", sourceType: "conta", sourceId: "gabriel"
             },
 
-            { id: 506, descricao: "Abastecer Meta Inglês (Parte 1)", origemDestino: "Plataforma de Inglês", tipo: "[🧑‍💻 MANUAL]", valor: 180, concluida: false,
+            { id: 506, descricao: "Abastecer Meta Inglês (RecargaPay)", origemDestino: "Plataforma de Inglês", tipo: "[🧑‍💻 MANUAL]", valor: 360, concluida: false,
               targetType: "caixinha", targetId: "ingles", operation: "add", sourceType: "conta", sourceId: "gabriel"
             }
           ]
         },
 
-        // Dia 15 — Leticia (sem transferência de 400)
+        // Dia 15 — Leticia
         {
           id: 6,
           dia: 15,
           responsavel: "leticia",
-          evento: "Renda e Provisionamentos",
+          evento: "Renda Mensal",
           tarefas: [
-            { id: 601, descricao: "Receber Salário", origemDestino: "Crédito da Renda 2", tipo: "[+ RENDA]", valor: 1000, concluida: false, targetType: "conta", targetId: "leticia", operation: "add" },
-            { id: 602, descricao: "Abastecer Meta Aluguel", origemDestino: "Caixinha Nubank: Aluguel", tipo: "[🧑‍💻 MANUAL]", valor: 650, concluida: false,
-              targetType: "caixinha", targetId: "aluguel", operation: "add", sourceType: "conta", sourceId: "leticia"
-            }
+            { id: 601, descricao: "Receber Salário", origemDestino: "Crédito da Renda 2", tipo: "[+ RENDA]", valor: 1000, concluida: false, targetType: "conta", targetId: "leticia", operation: "add" }
           ]
         }
       ],
@@ -218,18 +212,39 @@
       caixinhas: {
         obra: { id: "obra", nome: "Obra (Reserva Unificada)", saldo: 0, meta: 0 },
         viagem: { id: "viagem", nome: "Viagem", saldo: 0, meta: 200 },
-        ingles: { id: "ingles", nome: "Inglês", saldo: 0, meta: 300 },
+        ingles: { id: "ingles", nome: "Inglês", saldo: 0, meta: 360 },
         aluguel: { id: "aluguel", nome: "Aluguel", saldo: 0, meta: 650 }
       },
 
       cartoes: {
-        compras: { id: "compras", nome: "Compras Mensais (Next)", saldo: 0, limite: 700 },
+        compras: { id: "compras", nome: "Compras Mensais (Next)", saldo: 0, limite: 750 },
         delivery: { id: "delivery", nome: "Delivery (iFood)", saldo: 0, limite: 150 },
         mesadaGabriel: { id: "mesadaGabriel", nome: "Mesada Gabriel (C6)", saldo: 0, limite: 150 },
         mesadaLeticia: { id: "mesadaLeticia", nome: "Mesada Leticia (C6)", saldo: 0, limite: 150 },
         lazer: { id: "lazer", nome: "Lazer (99 Leticia)", saldo: 0, limite: 150 },
-        transporte: { id: "transporte", nome: "Transporte (99 Gabriel)", saldo: 0, limite: 95 }
+        transporte: { id: "transporte", nome: "Transporte (99 Gabriel)", saldo: 0, limite: 100 }
       }
+    };
+
+    // =========================================================
+    // CONSTANTS & HELPERS
+    // =========================================================
+    const GUIDE_DATA = [
+      { id: "nubank", name: "Nubank", keywords: ["nubank", "nuconta", "aluguel", "obra", "viagem"], logo: "assets/nubank.png", badge: "🟣", badgeColor: "bg-[#820AD1] text-white", logoBg: "bg-[#820AD1]" },
+      { id: "next", name: "Next", keywords: ["next", "bradesco", "compras"], logo: "assets/next.png", badge: "💚", badgeColor: "bg-[#00f2fe] text-[#333]", logoBg: "bg-[#00D464]" },
+      { id: "inter", name: "Inter", keywords: ["inter", "reserva"], logo: "assets/inter.png", badge: "🧡", badgeColor: "bg-[#fee140] text-[#333]", logoBg: "bg-[#FF7A00]" },
+      { id: "ifood", name: "iFood", keywords: ["ifood", "delivery"], logo: "assets/ifood.png", badge: "🍕", badgeColor: "bg-[#EA1D2C] text-white", logoBg: "bg-[#EA1D2C]" },
+      { id: "99", name: "99", keywords: ["99", "transporte", "lazer", "taxi", "uber"], logo: "assets/99.png", badge: "🚕", badgeColor: "bg-[#FFD700] text-[#333]", logoBg: "bg-[#FFD700]" },
+      { id: "c6", name: "C6", keywords: ["c6", "mesada"], logo: "assets/c6.png", badge: "🖤", badgeColor: "bg-[#000000] text-white", logoBg: "bg-[#000000]" },
+      { id: "english", name: "Inglês", keywords: ["inglês", "english", "curso"], logo: "assets/english.png", badge: "📚", badgeColor: "bg-[#4285F4] text-white", logoBg: "bg-[#4285F4]" },
+      { id: "shopee", name: "Shopee", keywords: ["shopee", "compras online"], logo: "assets/shopee.png", badge: "🛍️", badgeColor: "bg-[#EE4D2D] text-white", logoBg: "bg-[#EE4D2D]" }
+    ];
+
+    const getGuideItem = (text) => {
+      if (!text) return null;
+      const lowerText = text.toLowerCase();
+      // Tenta encontrar o item que possui uma keyword contida no texto
+      return GUIDE_DATA.find(item => item.keywords.some(k => lowerText.includes(k)));
     };
 
     // =========================================================
@@ -265,6 +280,7 @@
       const [mode, setMode] = useState("timeline"); // 'timeline' | 'planilha'
 
       const [isManagementModalOpen, setIsManagementModalOpen] = useState(false);
+      const [showDashboard, setShowDashboard] = useState(false);
 
       useEffect(() => {
         localStorage.setItem("financeDb", JSON.stringify(db));
@@ -505,8 +521,12 @@
       // =========================================================
       const Header = () => (
         <header className="p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm sticky top-0 z-20 flex justify-between items-center border-b border-gray-700">
-          <div>
+          <div
+            onClick={() => setShowDashboard(!showDashboard)}
+            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+          >
             <h1 className="text-lg sm:text-xl font-bold text-cyan-400">Dashboard Financeiro</h1>
+            <span className="text-gray-400 text-sm">{showDashboard ? '▲' : '▼'}</span>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={() => setIsManagementModalOpen(true)} className="text-xs bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-md hover:bg-yellow-500/40 transition-colors">
@@ -601,7 +621,53 @@
             <div className="flex justify-center gap-2">
               <button onClick={() => setMode("timeline")} className={modeButton("timeline")}>🕒 Linha do tempo</button>
               <button onClick={() => setMode("planilha")} className={modeButton("planilha")}>📄 Planilha</button>
+              <button onClick={() => setMode("guia")} className={modeButton("guia")}>💰 Guia</button>
             </div>
+          </div>
+        );
+      };
+
+      const GuiaDespesas = () => {
+        // Recriamos a lista original usando os dados centralizados para manter a consistência visual,
+        // mas permitindo customização de título/descrição específica do Guia se necessário.
+        // Mapeamento manual para garantir a ordem e textos exatos solicitados no guia original.
+        const items = [
+          { name: "Compras Mensais", desc: "Cartão Next", id: "next", customBadge: "🛒", customColor: "bg-[#00f2fe] text-[#333]" },
+          { name: "Transporte", desc: "99 Gabriel", id: "99", customBadge: "🚗", customColor: "bg-[#FFD700] text-[#333]" },
+          { name: "Lazer", desc: "99 Leticia", id: "99", customBadge: "🎉", customColor: "bg-[#fecfef] text-[#333]" },
+          { name: "Mesada Gabriel", desc: "C6 Bank Gabriel", id: "c6", customBadge: "👦", customColor: "bg-[#000000] text-white" },
+          { name: "Mesada Leticia", desc: "C6 Bank Leticia", id: "c6", customBadge: "👧", customColor: "bg-[#000000] text-white" },
+          { name: "Viagem", desc: "Caixinha Nubank", id: "nubank", customBadge: "✈️", customColor: "bg-[#820AD1] text-white" },
+          { name: "Aluguel", desc: "Caixinha Nubank", id: "nubank", customBadge: "🏠", customColor: "bg-[#820AD1] text-white" },
+          { name: "Inglês", desc: "Plataforma de Inglês", id: "english", customBadge: "📚", customColor: "bg-[#4285F4] text-white" },
+          { name: "Demais Contas", desc: "Conta Shopee Gabriel", id: "shopee", customBadge: "📊", customColor: "bg-[#EE4D2D] text-white" },
+        ];
+
+        return (
+          <div className="p-3 sm:p-4 max-w-lg mx-auto">
+             <div className="text-center mb-6 pb-2 border-b border-gray-700">
+                <h1 className="text-xl font-bold text-cyan-400">💰 Guia de Despesas</h1>
+                <p className="text-xs text-gray-400">Para onde enviar cada pagamento</p>
+             </div>
+             <div className="space-y-2">
+               {items.map((item, idx) => {
+                 const data = GUIDE_DATA.find(d => d.id === item.id) || {};
+                 return (
+                   <div key={idx} className="flex items-center p-3 bg-gray-800 rounded-xl shadow-lg hover:bg-gray-700 transition-colors gap-3 border border-gray-700">
+                     <div className={`w-10 h-10 min-w-[40px] rounded-lg flex items-center justify-center overflow-hidden shadow-sm ${data.logoBg} p-1`}>
+                       <img src={data.logo} alt={item.name} className="w-full h-full object-contain" />
+                     </div>
+                     <div className="flex-1 min-w-0">
+                       <h3 className="text-sm font-semibold text-gray-200">{item.name}</h3>
+                       <p className="text-xs text-gray-400 truncate">{item.desc}</p>
+                     </div>
+                     <span className={`px-2 py-1 rounded-full text-xs font-bold ${item.customColor || data.badgeColor}`}>
+                       {item.customBadge || data.badge}
+                     </span>
+                   </div>
+                 );
+               })}
+             </div>
           </div>
         );
       };
@@ -691,27 +757,39 @@
                 </thead>
 
                 <tbody>
-                  {flatRows.map((r) => (
-                    <tr
-                      key={`${r.actionId}_${r.taskId}`}
-                      className="border-t border-gray-700 hover:bg-gray-700/40 cursor-pointer"
-                      onClick={() => setChecklistActionId(r.actionId)}
-                    >
-                      <td className="p-3 text-gray-200">{r.dia}</td>
-                      <td className="p-3 text-gray-200 whitespace-nowrap">
-                        {db.usuarios?.[r.responsavel]?.emoji} {db.usuarios?.[r.responsavel]?.nome}
-                      </td>
-                      <td className={`p-3 font-semibold ${r.signed.color} whitespace-nowrap`}>{r.symbol}</td>
-                      <td className="p-3 text-gray-200">{r.descricao}</td>
-                      <td className="p-3 text-gray-400">{r.origemDestino}</td>
-                      <td className={`p-3 text-right font-bold ${r.signed.color} whitespace-nowrap`}>{r.signed.label}</td>
-                      <td className="p-3 text-right whitespace-nowrap">
-                        <span className={`text-xs px-2 py-1 rounded-full ${r.concluida ? "bg-green-500/20 text-green-300" : "bg-red-500/20 text-red-300"}`}>
-                          {r.concluida ? "Concluída" : "Pendente"}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {flatRows.map((r) => {
+                    const guideItem = getGuideItem(r.origemDestino) || getGuideItem(r.descricao);
+                    return (
+                      <tr
+                        key={`${r.actionId}_${r.taskId}`}
+                        className="border-t border-gray-700 hover:bg-gray-700/40 cursor-pointer"
+                        onClick={() => setChecklistActionId(r.actionId)}
+                      >
+                        <td className="p-3 text-gray-200">{r.dia}</td>
+                        <td className="p-3 text-gray-200 whitespace-nowrap">
+                          {db.usuarios?.[r.responsavel]?.emoji} {db.usuarios?.[r.responsavel]?.nome}
+                        </td>
+                        <td className={`p-3 font-semibold ${r.signed.color} whitespace-nowrap`}>{r.symbol}</td>
+                        <td className="p-3 text-gray-200">{r.descricao}</td>
+                        <td className="p-3 text-gray-400">
+                          <div className="flex items-center gap-2">
+                            {guideItem && (
+                              <div className={`w-6 h-6 rounded-md flex items-center justify-center p-0.5 ${guideItem.logoBg}`} title={guideItem.name}>
+                                <img src={guideItem.logo} className="w-full h-full object-contain" />
+                              </div>
+                            )}
+                            <span className="truncate">{r.origemDestino}</span>
+                          </div>
+                        </td>
+                        <td className={`p-3 text-right font-bold ${r.signed.color} whitespace-nowrap`}>{r.signed.label}</td>
+                        <td className="p-3 text-right whitespace-nowrap">
+                          <span className={`text-xs px-2 py-1 rounded-full ${r.concluida ? "bg-green-500/20 text-green-300" : "bg-red-500/20 text-red-300"}`}>
+                            {r.concluida ? "Concluída" : "Pendente"}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
                   {flatRows.length === 0 && (
                     <tr>
                       <td colSpan="7" className="p-6 text-center text-gray-400">Sem linhas para este filtro.</td>
@@ -746,26 +824,36 @@
               </div>
 
               <div className="space-y-3 flex-grow overflow-y-auto pr-2">
-                {action.tarefas.map((tarefa) => (
-                  <div
-                    key={tarefa.id}
-                    onClick={() => handleToggleTask(action.id, tarefa.id)}
-                    className={`p-3 rounded-lg cursor-pointer transition-all ${tarefa.concluida ? "bg-green-500/10 text-gray-400" : "bg-gray-700/50 hover:bg-gray-700"}`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center mb-1">
-                          <p className={`font-medium ${tarefa.concluida ? "line-through" : ""}`}>{tarefa.descricao}</p>
-                          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${typeColors[tarefa.tipo] || "bg-gray-500/20 text-gray-400"}`}>
-                            {tarefa.tipo}
-                          </span>
+                {action.tarefas.map((tarefa) => {
+                  const guideItem = getGuideItem(tarefa.origemDestino) || getGuideItem(tarefa.descricao);
+                  return (
+                    <div
+                      key={tarefa.id}
+                      onClick={() => handleToggleTask(action.id, tarefa.id)}
+                      className={`p-3 rounded-lg cursor-pointer transition-all ${tarefa.concluida ? "bg-green-500/10 text-gray-400" : "bg-gray-700/50 hover:bg-gray-700"}`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center mb-1">
+                            <p className={`font-medium ${tarefa.concluida ? "line-through" : ""}`}>{tarefa.descricao}</p>
+                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${typeColors[tarefa.tipo] || "bg-gray-500/20 text-gray-400"}`}>
+                              {tarefa.tipo}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2 mt-1">
+                            {guideItem && (
+                              <div className={`w-5 h-5 rounded flex items-center justify-center p-0.5 ${guideItem.logoBg}`} title={guideItem.name}>
+                                <img src={guideItem.logo} className="w-full h-full object-contain" />
+                              </div>
+                            )}
+                            <p className="text-sm text-gray-400">{tarefa.origemDestino}</p>
+                          </div>
                         </div>
-                        <p className="text-sm text-gray-400">{tarefa.origemDestino}</p>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 ml-4 flex-shrink-0 ${tarefa.concluida ? "bg-green-500 border-green-500" : "border-gray-500"}`}>
+                          {tarefa.concluida && <span>✓</span>}
+                        </div>
                       </div>
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 ml-4 flex-shrink-0 ${tarefa.concluida ? "bg-green-500 border-green-500" : "border-gray-500"}`}>
-                        {tarefa.concluida && <span>✓</span>}
-                      </div>
-                    </div>
 
                     <div className="flex justify-between items-center mt-2">
                       <p className="text-base font-bold text-cyan-400">R$ {Number(tarefa.valor).toFixed(2)}</p>
@@ -784,7 +872,8 @@
                       )}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
 
               <button onClick={() => setChecklistActionId(null)} className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors flex-shrink-0">
@@ -1059,16 +1148,20 @@
             <div className="min-h-screen pb-20">
               <Header />
               <main>
-                <ContasPanel />
-                <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
+                {showDashboard && (
+                  <div className="animate-fade-in-down">
+                    <ContasPanel />
+                    <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
 
-                <CaixinhasPanel />
-                <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
+                    <CaixinhasPanel />
+                    <div className="px-3 sm:px-4"><div className="border-t border-gray-700/50"></div></div>
 
-                <CartoesPanel />
+                    <CartoesPanel />
+                  </div>
+                )}
                 <ViewSwitcher />
 
-                {mode === "planilha" ? <SpreadsheetView /> : <Timeline />}
+                {mode === "planilha" ? <SpreadsheetView /> : mode === "guia" ? <GuiaDespesas /> : <Timeline />}
               </main>
 
               {checklistActionId && <ChecklistModal />}
